@@ -14,10 +14,11 @@ using namespace BBB;
 using namespace std;
 
 
-SPI::SPI(SPI_BUS bus) {
+SPI::SPI(BUS bus) {
 	this->filename = SPI_PATH + to_string(bus) + ".0";
 	this->mode = MODE3;
 	this->bits = 8;
+	this->bitOrder = MSB;
 	this->speed = 500000;
 	this->delay = 0;
 	this->open();
@@ -47,6 +48,10 @@ int SPI::open() {
 		perror("SPI: fail to set SPI bus bits/Word");
 		return -1;
 	}
+	if (this->setBitOrder(this->bitOrder) == -1) {
+		perror("SPI: fail to set SPI bus bit order");
+		return -1;
+	}
 	return 0;
 }
 
@@ -61,8 +66,8 @@ int SPI::transfer(uint8_t* txBuffer, uint8_t* rxBuffer, uint16_t num) {
 	struct spi_ioc_transfer transfer;
 	memset(&transfer, 0, sizeof(transfer));
 
-	transfer.tx_buf = (uint64_t)txBuffer;
-	transfer.rx_buf = (uint64_t)rxBuffer;
+	transfer.tx_buf = (uintptr_t)txBuffer;
+	transfer.rx_buf = (uintptr_t)rxBuffer;
 	transfer.len = num;
 	transfer.speed_hz = this->speed;
 	transfer.bits_per_word = this->bits;
@@ -196,14 +201,14 @@ int SPI::setSpeed(uint32_t speed) {
 }
 
 
-int SPI::setMode(SPI::SPI_MODE mode) {
+int SPI::setMode(MODE mode) {
 	this->mode = mode;
 	if (ioctl(this->file, SPI_IOC_WR_MODE, &this->mode) == -1){
 		perror("SPI: cannot set SPI mode.");
 		return -1;
 	}
 	if (ioctl(this->file, SPI_IOC_RD_MODE, &this->mode) == -1){
-		perror("SPI: cannot get SPI mode.");
+		perror("SPI: cannot set SPI mode.");
 		return -1;
 	}
 	return 0;
@@ -217,7 +222,21 @@ int SPI::setBitsPerWord(uint8_t bits) {
 		return -1;
 	}
 	if (ioctl(this->file, SPI_IOC_RD_BITS_PER_WORD, &this->bits) == -1){
-		perror("SPI: cannot get bits per word.");
+		perror("SPI: cannot set bits per word.");
+		return -1;
+	}
+	return 0;
+}
+
+
+int SPI::setBitOrder(ORDER order) {
+	this->bitOrder = order;
+	if (ioctl(this->file, SPI_IOC_WR_LSB_FIRST, &this->bitOrder) == -1){
+		perror("SPI: cannot set bit order");
+		return -1;
+	}
+	if (ioctl(this->file, SPI_IOC_RD_LSB_FIRST, &this->bitOrder) == -1){
+		perror("SPI: cannot set bit order.");
 		return -1;
 	}
 	return 0;
