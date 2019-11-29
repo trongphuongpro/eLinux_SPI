@@ -1,9 +1,6 @@
 #ifndef __SPI__
 #define __SPI__
 
-#include <cstdint>
-#include <string>
-
 #define SPI_PATH	"/dev/spidev"
 
 namespace BBB {
