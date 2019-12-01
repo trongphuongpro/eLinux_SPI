@@ -62,7 +62,7 @@ void SPI::close() {
 }
 
 
-int SPI::transfer(uint8_t* txBuffer, uint8_t* rxBuffer, uint16_t num) {
+int SPI::transfer(uint8_t *txBuffer, uint8_t *rxBuffer, uint16_t num) {
 	struct spi_ioc_transfer transfer;
 	memset(&transfer, 0, sizeof(transfer));
 
@@ -113,10 +113,11 @@ uint8_t SPI::read(uint8_t reg) {
 }
 
 
-int SPI::readBuffer(uint8_t* rxBuffer, uint16_t num) {
+int SPI::readBuffer(void *rxBuffer, uint16_t num) {
 	uint8_t txBuffer[num] = {0};
+	uint8_t *__rxBuffer = (uint8_t*)rxBuffer;
 
-	if (transfer(txBuffer, rxBuffer, num) == -1) {
+	if (transfer(txBuffer, __rxBuffer, num) == -1) {
 		perror("SPI: read buffer failed");
 		return -1;
 	}
@@ -124,15 +125,16 @@ int SPI::readBuffer(uint8_t* rxBuffer, uint16_t num) {
 }
 
 
-int SPI::readBuffer(uint8_t reg, uint8_t* rxBuffer, uint16_t num) {
+int SPI::readBuffer(uint8_t reg, void* rxBuffer, uint16_t num) {
 	uint8_t txBuffer[num] = {0};
+	uint8_t *__rxBuffer = (uint8_t*)rxBuffer;
 
 	if (transfer(&reg, NULL, 1) == -1) {
 		perror("SPI: set address failed");
 		return -1;
 	}
 
-	if (transfer(txBuffer, rxBuffer, num) == -1) {
+	if (transfer(txBuffer, __rxBuffer, num) == -1) {
 		perror("SPI: read buffer failed");
 		return -1;
 	}
@@ -161,8 +163,10 @@ int SPI::write(uint8_t reg, uint8_t value) {
 }
 
 
-int SPI::writeBuffer(uint8_t *buffer, uint16_t num) {
-	if (transfer(buffer, NULL, num) == -1) {
+int SPI::writeBuffer(void *buffer, uint16_t num) {
+	uint8_t *__buffer = (uint8_t*)buffer;
+
+	if (transfer(__buffer, NULL, num) == -1) {
 		perror("SPI: write buffer failed");
 		return -1;
 	}
@@ -170,13 +174,15 @@ int SPI::writeBuffer(uint8_t *buffer, uint16_t num) {
 }
 
 
-int SPI::writeBuffer(uint8_t reg, uint8_t *buffer, uint16_t num) {
+int SPI::writeBuffer(uint8_t reg, void *buffer, uint16_t num) {
+	uint8_t *__buffer = (uint8_t*)buffer;
+
 	if (transfer(&reg, NULL, 1) == -1) {
 		perror("SPI: set address failed");
 		return -1;
 	}
 
-	if (transfer(buffer, NULL, num) == -1) {
+	if (transfer(__buffer, NULL, num) == -1) {
 		perror("SPI: write buffer failed");
 		return -1;
 	}

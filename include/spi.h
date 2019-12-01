@@ -19,13 +19,13 @@ public:
 
 	virtual uint8_t read();
 	virtual uint8_t read(uint8_t reg);
-	virtual int readBuffer(uint8_t* buffer, uint16_t num);
-	virtual int readBuffer(uint8_t reg, uint8_t* buffer, uint16_t num);
+	virtual int readBuffer(void *buffer, uint16_t num);
+	virtual int readBuffer(uint8_t reg, void *buffer, uint16_t num);
 
 	virtual int write(uint8_t value);
 	virtual int write(uint8_t reg, uint8_t value);
-	virtual int writeBuffer(uint8_t* buffer, uint16_t num);
-	virtual int writeBuffer(uint8_t reg, uint8_t* buffer, uint16_t num);
+	virtual int writeBuffer(void *buffer, uint16_t num);
+	virtual int writeBuffer(uint8_t reg, void *buffer, uint16_t num);
 
 	virtual int setSpeed(uint32_t speed);
 	virtual int setMode(MODE mode);
@@ -41,7 +41,7 @@ private:
 	MODE mode;
 	ORDER bitOrder;
 
-	int transfer(uint8_t* txBuffer, uint8_t* rxBuffer, uint16_t num);
+	int transfer(uint8_t *txBuffer, uint8_t *rxBuffer, uint16_t num);
 
 };
 
