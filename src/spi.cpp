@@ -62,7 +62,7 @@ void SPI::close() {
 }
 
 
-int SPI::transfer(uint8_t *txBuffer, uint8_t *rxBuffer, uint16_t num) {
+int SPI::transfer(const uint8_t *txBuffer, const uint8_t *rxBuffer, uint16_t num) {
 	struct spi_ioc_transfer transfer;
 	memset(&transfer, 0, sizeof(transfer));
 
@@ -163,8 +163,8 @@ int SPI::write(uint8_t reg, uint8_t value) {
 }
 
 
-int SPI::writeBuffer(void *buffer, uint16_t num) {
-	uint8_t *__buffer = (uint8_t*)buffer;
+int SPI::writeBuffer(const void *buffer, uint16_t num) {
+	const uint8_t *__buffer = (const uint8_t*)buffer;
 
 	if (transfer(__buffer, NULL, num) == -1) {
 		perror("SPI: write buffer failed");

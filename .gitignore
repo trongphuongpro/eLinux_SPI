@@ -1,4 +1,5 @@
 build/
 bin/
+test/
 *sublime*
 sftp-config.json

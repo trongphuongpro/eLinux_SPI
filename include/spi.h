@@ -24,7 +24,7 @@ public:
 
 	virtual int write(uint8_t value);
 	virtual int write(uint8_t reg, uint8_t value);
-	virtual int writeBuffer(void *buffer, uint16_t num);
+	virtual int writeBuffer(const void *buffer, uint16_t num);
 	virtual int writeBuffer(uint8_t reg, void *buffer, uint16_t num);
 
 	virtual int setSpeed(uint32_t speed);
@@ -41,7 +41,7 @@ private:
 	MODE mode;
 	ORDER bitOrder;
 
-	int transfer(uint8_t *txBuffer, uint8_t *rxBuffer, uint16_t num);
+	int transfer(const uint8_t *txBuffer, const uint8_t *rxBuffer, uint16_t num);
 
 };
 
