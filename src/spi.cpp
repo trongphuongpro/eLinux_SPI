@@ -113,34 +113,31 @@ uint8_t SPI::read(uint8_t reg) {
 }
 
 
-uint8_t* SPI::readBuffer(uint16_t num) {
+int SPI::readBuffer(uint8_t* rxBuffer, uint16_t num) {
 	uint8_t txBuffer[num] = {0};
-	uint8_t *rxBuffer = (uint8_t*)calloc(num, 1);
 
-	if (transfer(txBuffer, rxBuffer, 1) == -1) {
+	if (transfer(txBuffer, rxBuffer, num) == -1) {
 		perror("SPI: read buffer failed");
-		return NULL;
+		return -1;
 	}
-
-	return rxBuffer;
+	return 0;
 }
 
 
-uint8_t* SPI::readBuffer(uint8_t reg, uint16_t num) {
+int SPI::readBuffer(uint8_t reg, uint8_t* rxBuffer, uint16_t num) {
 	uint8_t txBuffer[num] = {0};
-	uint8_t *rxBuffer = (uint8_t*)calloc(num, 1);
 
 	if (transfer(&reg, NULL, 1) == -1) {
 		perror("SPI: set address failed");
-		return NULL;
+		return -1;
 	}
 
 	if (transfer(txBuffer, rxBuffer, num) == -1) {
 		perror("SPI: read buffer failed");
-		return NULL;
+		return -1;
 	}
 
-	return rxBuffer;
+	return 0;
 }
 
 
