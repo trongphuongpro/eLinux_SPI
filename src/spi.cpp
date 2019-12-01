@@ -174,8 +174,8 @@ int SPI::writeBuffer(const void *buffer, uint16_t num) {
 }
 
 
-int SPI::writeBuffer(uint8_t reg, void *buffer, uint16_t num) {
-	uint8_t *__buffer = (uint8_t*)buffer;
+int SPI::writeBuffer(uint8_t reg, const void *buffer, uint16_t num) {
+	const uint8_t *__buffer = (const uint8_t*)buffer;
 
 	if (transfer(&reg, NULL, 1) == -1) {
 		perror("SPI: set address failed");

@@ -25,7 +25,7 @@ public:
 	virtual int write(uint8_t value);
 	virtual int write(uint8_t reg, uint8_t value);
 	virtual int writeBuffer(const void *buffer, uint16_t num);
-	virtual int writeBuffer(uint8_t reg, void *buffer, uint16_t num);
+	virtual int writeBuffer(uint8_t reg, const void *buffer, uint16_t num);
 
 	virtual int setSpeed(uint32_t speed);
 	virtual int setMode(MODE mode);
