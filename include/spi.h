@@ -17,8 +17,8 @@ public:
 	virtual int open();
 	virtual void close();
 
-	virtual uint8_t read();
-	virtual uint8_t read(uint8_t reg);
+	virtual int read();
+	virtual int read(uint8_t reg);
 	virtual int readBuffer(void *buffer, uint16_t num);
 	virtual int readBuffer(uint8_t reg, void *buffer, uint16_t num);
 

@@ -86,19 +86,19 @@ int SPI::transfer(const uint8_t *txBuffer, const uint8_t *rxBuffer, uint16_t num
 }
 
 
-uint8_t SPI::read() {
+int SPI::read() {
 	uint8_t rxValue = 0, txValue = 0;
 
 	if (transfer(&txValue, &rxValue, 1) == -1) {
 		perror("SPI: read failed");
-		return 0xFF;
+		return -1;
 	}
 
 	return rxValue;
 }
 
 
-uint8_t SPI::read(uint8_t reg) {
+int SPI::read(uint8_t reg) {
 	uint8_t txBuffer[2] = {0};
 	uint8_t rxBuffer[2] = {0};
 
@@ -106,7 +106,7 @@ uint8_t SPI::read(uint8_t reg) {
 
 	if (transfer(txBuffer, rxBuffer, 2) == -1) {
 		perror("SPI: read failed");
-		return 0xFF;
+		return -1;
 	}
 
 	return rxBuffer[1];
