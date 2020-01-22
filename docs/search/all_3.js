@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['spi_20library_20for_20bbb_5',['SPI library for BBB',['../index.html',1,'']]],
+  ['spi_20library_20for_20elinux_5',['SPI library for eLinux',['../index.html',1,'']]],
   ['setbitorder_6',['setBitOrder',['../classBBB_1_1SPI.html#a5c60f45c55812a057b6d212c6f6bdf8f',1,'BBB::SPI']]],
   ['setbitsperword_7',['setBitsPerWord',['../classBBB_1_1SPI.html#ac5637d01471326c6532fd681ad97edf6',1,'BBB::SPI']]],
   ['setdatamode_8',['setDataMode',['../classBBB_1_1SPI.html#a75d5f24caa9f8b8236b4ddd586ed2d3c',1,'BBB::SPI']]],
