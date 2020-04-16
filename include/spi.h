@@ -73,7 +73,7 @@ public:
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
-	virtual int readBuffer(void *buffer, uint16_t len);
+	virtual int readBuffer(void *buffer, uint32_t len);
 
 
 	/**
@@ -83,7 +83,7 @@ public:
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
-	virtual int readBuffer(uint8_t reg, void *buffer, uint16_t len);
+	virtual int readBuffer(uint8_t reg, void *buffer, uint32_t len);
 
 
 	/**
@@ -109,7 +109,7 @@ public:
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
-	virtual int writeBuffer(const void *buffer, uint16_t len);
+	virtual int writeBuffer(const void *buffer, uint32_t len);
 
 
 	/**
@@ -119,7 +119,7 @@ public:
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
-	virtual int writeBuffer(uint8_t reg, const void *buffer, uint16_t len);
+	virtual int writeBuffer(uint8_t reg, const void *buffer, uint32_t len);
 
 
 	/**
@@ -165,7 +165,7 @@ private:
 	int open();
 	void close();
 
-	int transfer(const uint8_t *txBuffer, const uint8_t *rxBuffer, uint16_t num);
+	int transfer(const void *txBuffer, void *rxBuffer, uint32_t num);
 
 };
 

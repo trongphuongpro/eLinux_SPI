@@ -70,22 +70,23 @@ void SPI::close() {
 }
 
 
-int SPI::transfer(const uint8_t *txBuffer, const uint8_t *rxBuffer, uint16_t num) {
+int SPI::transfer(const void *txBuffer, void *rxBuffer, uint32_t num) {
 	struct spi_ioc_transfer transfer;
 	memset(&transfer, 0, sizeof(transfer));
 
-	transfer.tx_buf = (uintptr_t)txBuffer;
-	transfer.rx_buf = (uintptr_t)rxBuffer;
+	transfer.tx_buf = (uint64_t)txBuffer;
+	transfer.rx_buf = (uint64_t)rxBuffer;
 	transfer.len = num;
 	transfer.speed_hz = this->speed;
 	transfer.bits_per_word = this->bits;
 	transfer.delay_usecs = this->delay;
 	transfer.tx_nbits = 0;
 	transfer.rx_nbits = 0;
-	transfer.cs_change = 0;
+	transfer.cs_change = 1;
 	transfer.pad = 0;
 
 	int status = ioctl(this->file, SPI_IOC_MESSAGE(1), &transfer);
+	printf("ioctl: %d\n", status);
 	if (status < 0) {
 		perror("SPI: SPI_IOC_MESSAGE failed");
 		return -1;
@@ -106,22 +107,7 @@ int SPI::read() {
 }
 
 
-int SPI::read(uint8_t reg) {
-	uint8_t txBuffer[2] = {0};
-	uint8_t rxBuffer[2] = {0};
-
-	txBuffer[0] = reg;
-
-	if (transfer(txBuffer, rxBuffer, 2) == -1) {
-		perror("SPI: read failed");
-		return -1;
-	}
-
-	return rxBuffer[1];
-}
-
-
-int SPI::readBuffer(void *rxBuffer, uint16_t num) {
+int SPI::readBuffer(void *rxBuffer, uint32_t num) {
 	uint8_t txBuffer[num] = {0};
 	uint8_t *__rxBuffer = (uint8_t*)rxBuffer;
 
@@ -129,24 +115,6 @@ int SPI::readBuffer(void *rxBuffer, uint16_t num) {
 		perror("SPI: read buffer failed");
 		return -1;
 	}
-	return 0;
-}
-
-
-int SPI::readBuffer(uint8_t reg, void* rxBuffer, uint16_t num) {
-	uint8_t txBuffer[num] = {0};
-	uint8_t *__rxBuffer = (uint8_t*)rxBuffer;
-
-	if (transfer(&reg, NULL, 1) == -1) {
-		perror("SPI: set address failed");
-		return -1;
-	}
-
-	if (transfer(txBuffer, __rxBuffer, num) == -1) {
-		perror("SPI: read buffer failed");
-		return -1;
-	}
-
 	return 0;
 }
 
@@ -160,35 +128,8 @@ int SPI::write(uint8_t value) {
 }
 
 
-int SPI::write(uint8_t reg, uint8_t value) {
-	uint8_t txBuffer[2] = {reg, value};
-
-	if (transfer(txBuffer, NULL, 2) == -1) {
-		perror("SPI: write failed");
-		return -1;
-	}
-	return 0;
-}
-
-
-int SPI::writeBuffer(const void *buffer, uint16_t num) {
+int SPI::writeBuffer(const void *buffer, uint32_t num) {
 	const uint8_t *__buffer = (const uint8_t*)buffer;
-
-	if (transfer(__buffer, NULL, num) == -1) {
-		perror("SPI: write buffer failed");
-		return -1;
-	}
-	return 0;
-}
-
-
-int SPI::writeBuffer(uint8_t reg, const void *buffer, uint16_t num) {
-	const uint8_t *__buffer = (const uint8_t*)buffer;
-
-	if (transfer(&reg, NULL, 1) == -1) {
-		perror("SPI: set address failed");
-		return -1;
-	}
 
 	if (transfer(__buffer, NULL, num) == -1) {
 		perror("SPI: write buffer failed");

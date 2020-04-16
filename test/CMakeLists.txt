@@ -12,7 +12,6 @@ set(TARGET testbench)
 set(SOURCE ../src/spi.cpp test.cpp)
 
 add_executable(${TARGET} ${SOURCE})
-target_link_libraries(${TARGET} /home/trongphuong/Work/BBB/libraries/crc32/bin/libcrc32.a)
 target_include_directories(${TARGET} PUBLIC ../include
 							/home/trongphuong/Work/BBB/libraries/crc32/include)
 
