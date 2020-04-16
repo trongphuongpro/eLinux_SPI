@@ -60,30 +60,12 @@ public:
 
 
 	/**
-	 * @brief Read 1 byte from a specific register via SPI bus.
-	 * @param reg register that will be read.
-	 * @return one byte.
-	 */
-	virtual int read(uint8_t reg);
-
-
-	/**
 	 * @brief Read 1 array from SPI bus.
 	 * @param buffer pointer to array.
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
 	virtual int readBuffer(void *buffer, uint32_t len);
-
-
-	/**
-	 * @brief Read 1 array from a specific register via SPI bus.
-	 * @param reg register that will be read.
-	 * @param buffer pointer to array.
-	 * @param len the length of data array.
-	 * @return 0:success, -1:failed.
-	 */
-	virtual int readBuffer(uint8_t reg, void *buffer, uint32_t len);
 
 
 	/**
@@ -95,31 +77,12 @@ public:
 
 
 	/**
-	 * @brief Write 1 byte to a specific register via SPI bus.
-	 * @param reg register that will be written.
-	 * @param value data that will be sent.
-	 * @return 0:success, -1:failed.
-	 */
-	virtual int write(uint8_t reg, uint8_t value);
-
-
-	/**
 	 * @brief Write 1 array to SPI bus.
 	 * @param buffer pointer to data array that will be sent.
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
 	virtual int writeBuffer(const void *buffer, uint32_t len);
-
-
-	/**
-	 * @brief Write 1 array to a specific register via SPI bus.
-	 * @param reg register that will be written.
-	 * @param buffer pointer to data array that will be sent.
-	 * @param len the length of data array.
-	 * @return 0:success, -1:failed.
-	 */
-	virtual int writeBuffer(uint8_t reg, const void *buffer, uint32_t len);
 
 
 	/**
