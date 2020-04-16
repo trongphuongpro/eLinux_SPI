@@ -56,7 +56,7 @@ public:
 	 * @brief Read 1 byte from SPI bus.
 	 * @return one byte.
 	 */
-	virtual int read();
+	virtual int receive();
 
 
 	/**
@@ -65,7 +65,7 @@ public:
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
-	virtual int readBuffer(void *buffer, uint32_t len);
+	virtual int receiveBuffer(void *buffer, uint32_t len);
 
 
 	/**
@@ -73,7 +73,7 @@ public:
 	 * @param value data that will be sent.
 	 * @return 0:success, -1:failed.
 	 */
-	virtual int write(uint8_t value);
+	virtual int send(uint8_t value);
 
 
 	/**
@@ -82,7 +82,7 @@ public:
 	 * @param len the length of data array.
 	 * @return 0:success, -1:failed.
 	 */
-	virtual int writeBuffer(const void *buffer, uint32_t len);
+	virtual int sendBuffer(const void *buffer, uint32_t len);
 
 
 	/**

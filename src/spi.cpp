@@ -95,11 +95,11 @@ int SPI::transfer(const void *txBuffer, void *rxBuffer, uint32_t num) {
 }
 
 
-int SPI::read() {
+int SPI::receive() {
 	uint8_t rxValue = 0, txValue = 0;
 
 	if (transfer(&txValue, &rxValue, 1) == -1) {
-		perror("SPI: read failed");
+		perror("SPI: receive failed");
 		return -1;
 	}
 
@@ -107,32 +107,32 @@ int SPI::read() {
 }
 
 
-int SPI::readBuffer(void *rxBuffer, uint32_t num) {
+int SPI::receiveBuffer(void *rxBuffer, uint32_t num) {
 	uint8_t txBuffer[num] = {0};
 	uint8_t *__rxBuffer = (uint8_t*)rxBuffer;
 
 	if (transfer(txBuffer, __rxBuffer, num) == -1) {
-		perror("SPI: read buffer failed");
+		perror("SPI: receive buffer failed");
 		return -1;
 	}
 	return 0;
 }
 
 
-int SPI::write(uint8_t value) {
+int SPI::send(uint8_t value) {
 	if (transfer(&value, NULL, 1) == -1) {
-		perror("SPI: write failed");
+		perror("SPI: send failed");
 		return -1;
 	}
 	return 0;
 }
 
 
-int SPI::writeBuffer(const void *buffer, uint32_t num) {
+int SPI::sendBuffer(const void *buffer, uint32_t num) {
 	const uint8_t *__buffer = (const uint8_t*)buffer;
 
 	if (transfer(__buffer, NULL, num) == -1) {
-		perror("SPI: write buffer failed");
+		perror("SPI: send buffer failed");
 		return -1;
 	}
 	return 0;

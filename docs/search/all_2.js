@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['read_3',['read',['../classBBB_1_1SPI.html#a7ff687910bb3ae8d54cb169e23a3d5df',1,'BBB::SPI']]],
-  ['readbuffer_4',['readBuffer',['../classBBB_1_1SPI.html#a8fd80425e7b09fae93c9ab13e70e8671',1,'BBB::SPI']]]
+  ['receive_3',['receive',['../classBBB_1_1SPI.html#af648ab4d0766f772bc8d08ed342225ff',1,'BBB::SPI']]],
+  ['receivebuffer_4',['receiveBuffer',['../classBBB_1_1SPI.html#ade118a458bb49442f5b740585a156014',1,'BBB::SPI']]]
 ];

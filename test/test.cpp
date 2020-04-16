@@ -15,7 +15,7 @@ int main() {
 
 	uint8_t data[10] = {1,2,3,4,5,6,7,8,9,0};
 	while (1) {
-		bus.writeBuffer(data, 10);
+		bus.sendBuffer(data, 10);
 		sleep(1);
 	}
 
